@@ -12,10 +12,12 @@ const __dirname = dirname(__filename);
 app.use(express.json());
 app.use(express.static("client"));
 
-app.get("/test", (req, res) =>
-	res.end("Hello from Express! (yes yes this will be changed to Rust later)"),
+app.get(
+  "/test",
+  (req, res) =>
+    res.end("Hello from Express! (yes yes this will be changed to Rust later)"),
 );
 
 app.listen(port, () => {
-	console.log(`Employees app listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
