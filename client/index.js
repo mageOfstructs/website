@@ -89,5 +89,5 @@ async function handleLogLoaded() {
 		await new Promise((r) => setTimeout(r, 50));
 	} while (glob_text_off !== 0);
 	console.log("finish");
-	container.className += " hidden";
+	window.location.href = "home.html";
 }
