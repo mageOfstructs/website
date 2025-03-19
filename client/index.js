@@ -1,5 +1,5 @@
 function init() {
-	loadLog();
+	if (!window.location.search.includes("skip")) loadLog();
 }
 
 function loadLog() {
@@ -53,8 +53,6 @@ function parseLine(line) {
 			document.createTextNode(line.substring(last_stop, matches.index)),
 		);
 		const tmp = document.createElement("span");
-		console.log(window.performance.now());
-		console.log(begin);
 		tmp.textContent = (
 			window.performance.now() / 1000 -
 			begin / 1000
@@ -84,10 +82,12 @@ async function handleLogLoaded() {
 	console.log(xhr.textContent);
 	const container = document.getElementById("logContainer");
 	container.innerHTML = "";
+	begin = window.performance.now();
 	do {
 		const line = getLine(xhr.response);
-		console.log(line);
 		container.appendChild(parseLine(line));
 		await new Promise((r) => setTimeout(r, 50));
 	} while (glob_text_off !== 0);
+	console.log("finish");
+	container.className += " hidden";
 }
