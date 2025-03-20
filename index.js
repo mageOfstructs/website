@@ -4,7 +4,7 @@ function init() {
 
 function loadLog() {
 	const req = new XMLHttpRequest();
-	req.open("GET", "/log.txt");
+	req.open("GET", `${window.location.search}/log`);
 	req.addEventListener("load", handleLogLoaded);
 	req.send();
 }
