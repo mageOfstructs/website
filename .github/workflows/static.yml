@@ -36,7 +36,7 @@ jobs:
       - name: install node
         uses: actions/setup-node@v4
       - run: npm install tailwindcss
-      - run: npx @tailwindcss/cli -i ./client/styles.css -o ./client/output.css --optimize
+      - run: npx @tailwindcss/cli -i styles.css -o output.css --optimize
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
