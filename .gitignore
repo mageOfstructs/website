@@ -1,3 +1,4 @@
 node_modules
-/client/output.css
+output.css
 src
+package*
