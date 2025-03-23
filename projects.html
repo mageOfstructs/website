@@ -10,16 +10,11 @@
     <template id="project-div">
       <style>
         @import url("output.css");
-        @keyframes expand {
-          to {
-            transform: scale(1.1);
-          }
+        div {
+          transition-duration: 500ms;
         }
         div:hover {
-          animation-name: expand;
-          animation-duration: 0.5s;
-          animation-iteration-count: 1;
-          animation-fill-mode: forwards;
+          transform: scale(1.1);
         }
       </style>
       <div
