@@ -1,1 +1,3 @@
-sed -E -s "$1" -e "s/\*\*(.*)\*\*/<b>\1<\/b>/g" -e "s/\*(.*)\*/<i>\1<\/i>/g" -e "$(/bin/grep -nEm1 "^-.*\$" <$1 | cut -c -1) i <ul>" -e "$(cat "$1" | /bin/grep -nEm1 "^-.*\$" | tail -1 | cut -c -1) a </ul>" -e "s/^- (.*)\$/<li>\1<\/li>/g" -e "/^#/d" > "$2"
+awk -f ./list.awk <$1 > "$2"
+# one sed command to rule them all
+sed -E -s "$2" -e "s/\*\*(.*)\*\*/<b>\1<\/b>/g" -e "s/\*(.*)\*/<i>\1<\/i>/g" -e "s/^- (.*)\$/<li>\1<\/li>/g" -e "/^#/d" > "$2"
