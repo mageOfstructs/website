@@ -37,7 +37,7 @@ function check_list_end() {
   print;
 }
 
-/^[^-[0-9]].*$/ {
+/^[^-0-9].*$/ {
   check_list_end();
   currently_in_olist = 0;
   currently_in_ulist = 0;
