@@ -24,5 +24,7 @@ codeblock() {
   done
 }
 
+readonly HEADING=$(/bin/grep "$1" -m1 -oPe "[^# ].*")
+readonly OUTFILE="./thoughts_gen/$HEADING.html"
 # one sed command to rule them all
-cat $1 | awk -f ./list.awk | sed -E -e "s/\*\*(.*)\*\*/<b>\1<\/b>/g" -e "s/\*(.*)\*/<i>\1<\/i>/g" -e "s/^- (.*)\$/<li>\1<\/li>/g" -e "/^#/d" > "$2"
+cat $1 | awk -f ./list.awk | sed -E -e "s/\*\*(.*)\*\*/<b>\1<\/b>/g" -e "s/\*(.*)\*/<i>\1<\/i>/g" -e "s/^- (.*)\$/<li>\1<\/li>/g" -e "/^#/d" >> $OUTFILE
