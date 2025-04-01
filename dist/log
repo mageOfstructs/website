@@ -1,0 +1,34 @@
+Linuwux version 6.2.1 x86_64 
+Compile Flags: +LTO +PGO +UNICODE +RAWR +SILLY +RUST
+ATTENTION!!! Kernel has been compiled with experimental optimization set 'dwagon', bug reports may be ignored!
+[ <time> ] debug: active
+[ <time> ] debug: mode set to 'print statements'
+[ <time> ] debug: log_dest is set to COM0
+[ <time> ] sched: freq 1000Hz
+[ <time> ] sched: bore
+[ <time> ] sched: set permanent prio for proc 'drgn'
+[ <time> ] vm: MLPT depth: infinite
+[ <time> ] swap: 900G active
+[ <time> ] usb: hid registered: 0x32438394FAD
+[ <time> ] usb: mass storage device registered: 0x3BAD9354FAD
+[ <time> ] cryptfs: encryption is LUKS2
+[ <time> ] luks2: root decryption with key /mnt/dragon successfull
+[ <time> ] fsck: restored 345 blocks
+[ <time> ] starting init...
+[ <time> ] Systemd init
+[ FAILED ] Systemd bootstrap
+[ <time> ] kernel_sec: refused mem overwrite of kernel overwrite
+[ <time> ] kernel_sec: offending proc pid: 1 (systemd)
+[ OK ] starting Systemd recovery service
+[ OK ] starting rawr service
+[ OK ] starting network service
+[ <time> ] rx queue: frame #122, type TCP/HTTP, 40 bytes
+[ OK ] starting emoji service...
+[ <time> ] emoji: pack 'drgn' (41971180 bytes) loaded into RAM
+[ OK ] starting ram donation service...
+donate_ram: gave 32G to protogen with addr 43:3f:7a:22:10:ff
+donate_ram: gave 32G to protogen with addr 43:3f:7b:22:10:df
+donate_ram: gave 32G to protogen with addr 17:3f:7b:22:19:df
+(text-yellow-300 font-bold)*donate_ram exited with exit code 1: insufficient ram to continue
+[ OK ] starting web server...
+web_server: got connection!
