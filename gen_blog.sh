@@ -6,7 +6,7 @@ log() {
   echo "$SCRIPTNAME: " $1
 }
 
-rm ./thoughts_gen/*.html
+rm ./thoughts_gen/*.html || true
 for thought in $(ls ./thoughts/*); do
   ./to_html.sh "$thought"
 done
