@@ -7,14 +7,11 @@ class ThoughtDiv extends HTMLElement {
 
 		const shadowRoot = this.attachShadow({ mode: "open" });
 		shadowRoot.appendChild(templateContent.cloneNode(true));
-		// shadowRoot.querySelector("#heading").textContent =
-		// 	this.attributes["heading"].nodeValue;
 		shadowRoot.querySelector("#content").innerHTML = "<slot></slot>";
 	}
 	connectedCallback() {
-		console.log("test");
-		// this.shadowRoot.getElementById("heading").textContent =
-		// 	this.attributes["heading"].nodeValue;
+		this.shadowRoot.querySelector("#heading").textContent =
+			this.attributes["heading"].nodeValue;
 	}
 }
 

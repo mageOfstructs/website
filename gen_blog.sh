@@ -12,7 +12,7 @@ for thought in $(ls ./thoughts/*); do
 done
 
 for thought in $(ls ./thoughts_gen/*.html); do
-  echo "<thought-div heading=\"asdf\">$(cat "$thought")</thought-div>" >> tmp
+  echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
 done
 
 awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./thoughts.html > out.html
