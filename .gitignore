@@ -2,4 +2,4 @@ node_modules
 out*
 src
 package*
-thoughts/
+thoughts_gen/
