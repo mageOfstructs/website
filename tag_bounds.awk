@@ -9,6 +9,8 @@ function handle_tag_bounds(tagname, rtrigger, state) {
     print "<" tagname ">";
     return 1;
   } else if (!($0 ~ rtrigger) && state == 1) {
+    if (tagname == "blockquote")
+      print "";
     print "</" tagname ">";
     return 0;
   }
@@ -28,5 +30,5 @@ END {
   if (currently_in_olist == 1)
     print "</ol>";
   if (currently_in_bquote == 1)
-    print "</blockqoute>";
+    print "\n</blockqoute>";
 }
