@@ -32,4 +32,4 @@ codeblock() {
 readonly HEADING=$(/bin/grep "$1" -m1 -oPe "[^# ].*")
 readonly OUTFILE="./thoughts_gen/$HEADING.html"
 # one sed command to rule them all
-cat "$1" | awk -f ./tag_bounds.awk | sed -E -e "s/\*\*([^*]*)\*\*/<b>\1<\/b>/g" -e "s/\*([^*]*)\*/<i>\1<\/i>/g" -e "s/^- (.*)\$/<li>\1<\/li>/g" -e "/^#/d" -e "s/\[([^\(\[]*)\]\(([^\(\[\)]*)\)/<a href=\"\2\">\1<\/a>/g" >> "$OUTFILE"
+cat "$1" | awk -f ./tag_bounds.awk | sed -E -f ./tags.sed >> "$OUTFILE"
