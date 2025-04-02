@@ -7,11 +7,12 @@ log() {
 }
 
 rm ./thoughts_gen/*.html || true
-for thought in $(ls ./thoughts/*); do
+for thought in ./thoughts/*; do
+  log "$thought"
   ./to_html.sh "$thought"
 done
 
-for thought in $(ls ./thoughts_gen/*.html); do
+for thought in ./thoughts_gen/*.html; do
   echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
 done
 
