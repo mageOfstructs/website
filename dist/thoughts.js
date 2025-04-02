@@ -9,15 +9,21 @@ class ThoughtDiv extends HTMLElement {
 		// Add styles directly to the shadow root
 		const style = document.createElement("style");
 		style.textContent = `
-            ::slotted(a) {
-                color: #84cc16 !important;
-                text-decoration-line: underline !important;
-            }
-            ::slotted(a:hover) {
-                background-color: #84cc16;
-                color: #0a0a0a !important;
-            }
-        `;
+      ::slotted(a) {
+          color: #84cc16 !important;
+          text-decoration-line: underline !important;
+      }
+      ::slotted(a:hover) {
+          background-color: #84cc16;
+          color: #0a0a0a !important;
+      }
+      ::slotted(blockquote) {
+          border-left: solid grey 3px !important;
+          padding-left: 2em !important;
+          font-style: italic !important;
+          background-color: #111;
+      }
+    `;
 		shadowRoot.appendChild(style);
 		shadowRoot.querySelector("#content").innerHTML = "<slot></slot>";
 	}
