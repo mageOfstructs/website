@@ -13,7 +13,8 @@ codeblock() {
   echo $IFS
   filecnt=0
   CODEBLOCKS=$(cat "$1" | awk -f ./codeblock_filter.awk)
-  mkdir -p "./dist/codeblocks/$HEADING"
+  mkdir -p "./thoughts_gen/codeblocks/$HEADING"
+  rm -rf "./thoughts_gen/codeblocks/$HEADING/*" || true
   for i in $CODEBLOCKS; do 
     if [ -n "$(echo $i | tr -d ' \n')" ]; then 
       IFS=$'\n'
@@ -28,7 +29,7 @@ codeblock() {
       done
       vim --cmd "colorscheme elflord" "out.$cb_lang" -c "TOhtml" -c "w out$filecnt.html" -c "qa!"
       rm "out.$cb_lang"
-      mv "out$filecnt.html" "./dist/codeblocks/$HEADING/"
+      mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
       filecnt=$(($filecnt + 1))
     fi
   done
