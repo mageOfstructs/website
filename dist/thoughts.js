@@ -37,4 +37,17 @@ class ThoughtDiv extends HTMLElement {
 	}
 }
 
+class Codeblock extends HTMLElement {
+	constructor() {
+		super();
+	}
+	connectedCallback() {
+		setTimeout(() => {
+			const shadowRoot = this.attachShadow({ mode: "open" });
+			shadowRoot.append(...this.childNodes);
+		});
+	}
+}
+
 customElements.define("thought-div", ThoughtDiv);
+customElements.define("thought-cb", Codeblock);
