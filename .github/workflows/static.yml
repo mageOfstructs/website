@@ -36,9 +36,9 @@ jobs:
       - name: install node
         uses: actions/setup-node@v4
       - name: install vim
-      - uses: rhysd/action-setup-vim@v1
+        uses: rhysd/action-setup-vim@v1
         with:
-          version: nightly
+            version: nightly
       - run: ./gen_blog.sh
       - run: npm install tailwindcss
       - run: npx @tailwindcss/cli -i styles.css -o ./dist/output.css --optimize
