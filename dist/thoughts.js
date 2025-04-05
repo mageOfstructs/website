@@ -23,6 +23,10 @@ class ThoughtDiv extends HTMLElement {
           font-style: italic !important;
           background-color: #111;
       }
+      ::slotted(iframe) {
+          width: 100%;
+          height: auto;
+      }
     `;
 		shadowRoot.appendChild(style);
 		shadowRoot.querySelector("#content").innerHTML = "<slot></slot>";
