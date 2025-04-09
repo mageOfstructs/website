@@ -10,11 +10,11 @@ class ThoughtDiv extends HTMLElement {
 		const style = document.createElement("style");
 		style.textContent = `
       ::slotted(a) {
-          color: #84cc16 !important;
+          color: var(--primary) !important;
           text-decoration-line: underline !important;
       }
       ::slotted(a:hover) {
-          background-color: #84cc16;
+          background-color: var(--primary);
           color: #0a0a0a !important;
       }
       ::slotted(blockquote) {

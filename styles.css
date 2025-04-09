@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --color-lime-500: #36C8FF;
+  --primary: var(--color-lime-500);
+}
