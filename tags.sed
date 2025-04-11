@@ -4,3 +4,4 @@ s/- (.*)$/<li>\1<\/li>/ # list items
 /^#/d # remove heading, those are parsed somewhere else
 s/\[([^\(\[]*)\]\(([^\(\[\)]*)\)/<a href=\"\2\">\1<\/a>/g # links
 s/^>[[:space:]]*(.*)/\1/ # so blockquotes are nice and clean
+s/\[\[(.*)\]\]/<a href=\"\/thoughts\/\1.md\">\1<\/a>/g # for the cool obsidian-like links
