@@ -12,6 +12,16 @@ for thought in ./thoughts/*; do
   ./to_html.sh "$thought"
 done
 
+multi_page_gen() {
+  mkdir -p dist/thoughts
+  for thought in ./thoughts_gen/*.html; do
+    heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
+    echo "<thought-div heading=\"$heading\">$(cat "$thought")</thought-div>" > tmp
+    awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./dist/thoughts.html > "./dist/thoughts/$heading.html"
+  done
+  rm tmp
+}
+
 for thought in ./thoughts_gen/*.html; do
   echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
 done
