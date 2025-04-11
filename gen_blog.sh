@@ -2,12 +2,14 @@
 set -e
 
 readonly SCRIPTNAME="$0"
+readonly MD_SRC="${1:-./thoughts}"
+readonly HTML_DST="${2:-./thoughts_gen}"
 log() {
   echo "$SCRIPTNAME: " $1
 }
 
 rm ./thoughts_gen/*.html || true
-for thought in ./thoughts/*; do
+for thought in $MD_SRC/*.md; do
   log "$thought"
   ./to_html.sh "$thought"
 done
@@ -22,7 +24,7 @@ multi_page_gen() {
   rm tmp
 }
 
-for thought in ./thoughts_gen/*.html; do
+for thought in $HTML_DST/*.html; do
   echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
 done
 
