@@ -4,11 +4,16 @@ set -e
 readonly SCRIPTNAME="$0"
 readonly MD_SRC="${1:-./thoughts}"
 readonly HTML_DST="${2:-./thoughts_gen}"
+readonly ASSET_DIR="${ASSET_DIR:-"$MD_SRC/assets"}"
 log() {
   echo "$SCRIPTNAME: " $1
 }
 
 rm ./thoughts_gen/*.html || true
+if [[ -n "$ASSET_DIR" && -d "$ASSET_DIR" ]]; then
+  cp -r "$ASSET_DIR" "./dist/" # TODO: change later
+fi
+
 for thought in $MD_SRC/*.md; do
   log "$thought"
   ./to_html.sh "$thought"
