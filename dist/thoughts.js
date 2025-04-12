@@ -9,29 +9,32 @@ class ThoughtDiv extends HTMLElement {
 		// Add styles directly to the shadow root
 		const style = document.createElement("style");
 		style.textContent = `
-      ::slotted(a) {
+      a {
           color: var(--primary) !important;
           text-decoration-line: underline !important;
       }
-      ::slotted(a:hover) {
+      a:hover {
           background-color: var(--primary);
           color: #0a0a0a !important;
       }
-      ::slotted(blockquote) {
+      ul, ol {
+        margin-left: 2em !important;
+        list-style: unset;
+      }
+      blockquote {
           border-left: solid grey 3px !important;
           padding-left: 2em !important;
           font-style: italic !important;
           background-color: #111;
       }
-      ::slotted(iframe) {
-          width: 100%;
-          height: auto;
-      }
     `;
 		shadowRoot.appendChild(style);
-		shadowRoot.querySelector("#content").innerHTML = "<slot></slot>";
 	}
 	connectedCallback() {
+		const content = this.shadowRoot.querySelector("#content");
+		setTimeout(() => {
+			content.append(...this.childNodes);
+		});
 		this.shadowRoot.querySelector("#heading").textContent =
 			this.attributes["heading"].nodeValue;
 	}
@@ -43,7 +46,17 @@ class Codeblock extends HTMLElement {
 	}
 	connectedCallback() {
 		setTimeout(() => {
-			const shadowRoot = this.attachShadow({ mode: "open" });
+			const shadowRoot = this.shadowRoot
+				? this.shadowRoot
+				: this.attachShadow({ mode: "open" });
+			const additionalStyles = document.createElement("style");
+			additionalStyles.innerText = `
+pre {
+  line-height: 1.5em;
+  padding: 1em;
+}
+`;
+			shadowRoot.appendChild(additionalStyles);
 			shadowRoot.append(...this.childNodes);
 		});
 	}
