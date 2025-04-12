@@ -4,3 +4,6 @@ src
 package*
 thoughts_gen/
 thoughtlist.html
+thoughts/index.md
+thoughts/test.md
+dist/assets
