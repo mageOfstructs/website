@@ -9,7 +9,19 @@ log() {
   echo "$SCRIPTNAME: " $1
 }
 
-rm ./thoughts_gen/*.html || true
+init() {
+  # ensure we have a syntax highlighter
+  python -m venv ./venv
+  source ./venv/bin/activate
+  pip install pygments
+
+  # clean generated file dir
+  # TODO: parameterize (scary)
+  rm ./thoughts_gen/*.html || true
+}
+
+init
+
 if [[ -n "$ASSET_DIR" && -d "$ASSET_DIR" ]]; then
   cp -r "$ASSET_DIR" "./dist/" # TODO: change later
 fi
