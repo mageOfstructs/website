@@ -11,13 +11,17 @@ log() {
 
 init() {
   # ensure we have a syntax highlighter
-  python -m venv ./venv
-  source ./venv/bin/activate
-  pip install pygments
+  if [[ ! -a ./venv ]]; then
+    python -m venv ./venv
+    source ./venv/bin/activate
+    pip install pygments
 
+  fi
+  
   # clean generated file dir
   # TODO: parameterize (scary)
   rm ./thoughts_gen/*.html || true
+  rm tmp || true
 }
 
 init
@@ -42,7 +46,7 @@ multi_page_gen() {
 }
 
 for thought in $HTML_DST/*.html; do
-  echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
+  echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h3 class=\"font-bold text-xl\">$(echo "$thought" | cut -c 16- | cut -d. -f1)</h3><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
 done
 
 awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./dist/thoughts.html > ./dist/thoughtlist.html

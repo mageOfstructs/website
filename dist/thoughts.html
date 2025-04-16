@@ -4,6 +4,27 @@
     <title>Rawr</title>
     <link href="output.css" rel="stylesheet" />
     <script src="thoughts.js"></script>
+    <style>
+      .thought a {
+        color: var(--primary) !important;
+        text-decoration-line: underline !important;
+      }
+      .thought a:hover {
+        background-color: var(--primary);
+        color: #0a0a0a !important;
+      }
+      .thought ul,
+      ol {
+        margin-left: 2em !important;
+        list-style: unset;
+      }
+      .thought blockquote {
+        border-left: solid grey 3px !important;
+        padding-left: 2em !important;
+        font-style: italic !important;
+        background-color: #111;
+      }
+    </style>
   </head>
 
   <body class="font-mono bg-neutral-950 m-0 text-stone-50">
