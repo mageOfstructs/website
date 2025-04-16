@@ -20,20 +20,22 @@ codeblock() {
       IFS=$'\n'
       cb_lang=($i)
       IFS=$'`'
-      echo "CBLANG: $cb_lang"
-      echo $(echo ${#cb_lang[@]}-1 | bc)
       j=1
       while [ $j -lt ${#cb_lang[@]} ]; do
         echo "${cb_lang[$j]}" >> "out.$cb_lang"
         j=$(($j + 1))
       done
-      vim --cmd "colorscheme elflord" "out.$cb_lang" -c "TOhtml" -c "w out$filecnt.html" -c "qa!"
+      python highlight.py "out.$cb_lang" "$filecnt" "monokai"
       rm "out.$cb_lang"
       mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
       filecnt=$(($filecnt + 1))
     fi
   done
 }
+
+if [ "$(head -1 "$1")" == "---" ]; then
+  sed -si "1,7 d" "$1"
+fi
 
 codeblock "$1"
 
