@@ -17,7 +17,7 @@ ATTENTION!!! Kernel has been compiled with experimental optimization set 'dwagon
 [ <time> ] starting init...
 [ <time> ] Systemd init
 [ FAILED ] Systemd bootstrap
-[ <time> ] kernel_sec: refused mem overwrite of kernel overwrite
+[ <time> ] kernel_sec: refused overwrite of kernelspace memory
 [ <time> ] kernel_sec: offending proc pid: 1 (systemd)
 [ OK ] starting Systemd recovery service
 [ OK ] starting rawr service
