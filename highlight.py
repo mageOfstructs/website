@@ -10,4 +10,4 @@ with open(sys.argv[1], "r") as file:
         style="default"
         if (len(sys.argv) == 4):
             style = sys.argv[3]
-        highlight(code, get_lexer_for_filename(sys.argv[1]), HtmlFormatter(noclasses=True), outfile)
+        highlight(code, get_lexer_for_filename(sys.argv[1]), HtmlFormatter(noclasses=True,style=style), outfile)
