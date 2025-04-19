@@ -17,14 +17,11 @@ codeblock() {
   rm -rf "./thoughts_gen/codeblocks/$HEADING/*" || true
   for i in $CODEBLOCKS; do 
     if [ -n "$(echo $i | tr -d ' \n')" ]; then 
+      arr_ready_str="$(awk "//; /^[[:space:]]*\$/{print \" \";}" <<< "$i")"
       IFS=$'\n'
-      cb_lang=($i)
+      cb_lang=($arr_ready_str)
       IFS=$'`'
-      j=1
-      while [ $j -lt ${#cb_lang[@]} ]; do
-        echo "${cb_lang[$j]}" >> "out.$cb_lang"
-        j=$(($j + 1))
-      done
+      printf "%s\n" "${cb_lang[@]:1:$((${#cb_lang[@]}-2))}" > "out.$cb_lang"
       python highlight.py "out.$cb_lang" "$filecnt" "monokai"
       rm "out.$cb_lang"
       mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
