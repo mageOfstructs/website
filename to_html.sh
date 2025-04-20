@@ -10,7 +10,6 @@ log() {
 
 codeblock() {
   IFS=$'`'
-  echo $IFS
   filecnt=0
   CODEBLOCKS=$(cat "$1" | awk -f ./codeblock_filter.awk)
   mkdir -p "./thoughts_gen/codeblocks/$HEADING"
