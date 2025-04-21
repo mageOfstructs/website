@@ -9,29 +9,67 @@ log() {
   echo "$SCRIPTNAME: " $1
 }
 
-rm ./thoughts_gen/*.html || true
+init() {
+  # ensure we have a syntax highlighter
+  if [[ ! -a ./venv ]]; then
+    python -m venv ./venv
+    source ./venv/bin/activate
+    pip install pygments
+
+  fi
+  
+  # clean generated file dir
+  # TODO: parameterize (scary)
+  rm ./thoughts_gen/*.html || true
+  rm tmp || true
+  cp ./src/* dist/
+}
+
+init
+
 if [[ -n "$ASSET_DIR" && -d "$ASSET_DIR" ]]; then
   cp -r "$ASSET_DIR" "./dist/" # TODO: change later
 fi
 
 for thought in $MD_SRC/*.md; do
-  log "$thought"
   ./to_html.sh "$thought"
 done
 
-multi_page_gen() {
-  mkdir -p dist/thoughts
-  for thought in ./thoughts_gen/*.html; do
-    heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
-    echo "<thought-div heading=\"$heading\">$(cat "$thought")</thought-div>" > tmp
-    awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./dist/thoughts.html > "./dist/thoughts/$heading.html"
-  done
-  rm tmp
+getlinenr() {
+  echo "$(grep -m1 -nF "$1" $2 | cut -d: -f1)"
 }
 
-for thought in $HTML_DST/*.html; do
-  echo "<thought-div heading=\"$(echo "$thought" | cut -c 16- | cut -d. -f1)\">$(cat "$thought")</thought-div>" >> tmp
-done
+multi_page_gen() {
+  log "selected multi_page_gen"
+  mkdir -p dist/thoughts
+  docentry_insertpoint="$(getlinenr '<!-- doc entries here -->' dist/docs.html)"
+  for thought in ./thoughts_gen/*.html; do
+    thought_heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
+    echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h1 class=\"font-bold text-3xl text-sky-600\" id=\"$thought_heading\">$thought_heading</h1><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
+    sed "58,70 d" dist/thoughts.html | awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' > "./dist/thoughts/$thought_heading.html"
+    sed -si "$docentry_insertpoint a <li class=\"text-lime-500 hover:bg-lime-500 hover:text-neutral-950\" onclick=\"document.getElementById('content').src = 'thoughts/$thought_heading.html'\">$thought_heading</li>" dist/docs.html
+    docentry_insertpoint=$(($docentry_insertpoint + 1))
+    rm tmp
+  done
+}
 
-awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./dist/thoughts.html > ./dist/thoughtlist.html
-rm tmp
+page_gen() {
+  log "$@"
+  for arg in $@; do
+    case "$arg" in
+      -m)
+        multi_page_gen
+        return 0
+    esac
+  done
+  
+  for thought in $HTML_DST/*.html; do
+    thought_heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
+    echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h1 class=\"font-bold text-3xl text-sky-600\" id=\"$thought_heading\">$thought_heading</h1><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
+  done
+  
+  awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' ./src/thoughts.html > ./dist/thoughts.html
+  rm tmp
+}
+page_gen $@
+

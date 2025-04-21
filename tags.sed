@@ -14,4 +14,4 @@ s/`([^`]*)`/<code>\1<\/code>/g
 s/!\[([^\]*)\]\(([^\)]*)\)/<img src=\"\2\" alt=\"\1\">/g # images, needs to be before links
 s/\[([^\(\[]*)\]\(([^\(\[\)]*)\)/<a href=\"\2\">\1<\/a>/g # links
 s/^>[[:space:]]*(.*)/\1/ # so blockquotes are nice and clean
-s/\[\[(.*)\]\]/<a href=\"\/thoughts\/\1.md\">\1<\/a>/g # for the cool obsidian-like links
+s/\[\[(.*)\]\]/<a href=\"\/thoughts\/\1.html\">\1<\/a>/g # for the cool obsidian-like links

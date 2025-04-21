@@ -10,30 +10,28 @@ log() {
 
 codeblock() {
   IFS=$'`'
-  echo $IFS
   filecnt=0
   CODEBLOCKS=$(cat "$1" | awk -f ./codeblock_filter.awk)
   mkdir -p "./thoughts_gen/codeblocks/$HEADING"
   rm -rf "./thoughts_gen/codeblocks/$HEADING/*" || true
   for i in $CODEBLOCKS; do 
     if [ -n "$(echo $i | tr -d ' \n')" ]; then 
+      arr_ready_str="$(awk "//; /^[[:space:]]*\$/{print \" \";}" <<< "$i")"
       IFS=$'\n'
-      cb_lang=($i)
+      cb_lang=($arr_ready_str)
       IFS=$'`'
-      echo "CBLANG: $cb_lang"
-      echo $(echo ${#cb_lang[@]}-1 | bc)
-      j=1
-      while [ $j -lt ${#cb_lang[@]} ]; do
-        echo "${cb_lang[$j]}" >> "out.$cb_lang"
-        j=$(($j + 1))
-      done
-      vim --cmd "colorscheme elflord" "out.$cb_lang" -c "TOhtml" -c "w out$filecnt.html" -c "qa!"
+      printf "%s\n" "${cb_lang[@]:1:$((${#cb_lang[@]}-2))}" > "out.$cb_lang"
+      python highlight.py "out.$cb_lang" "$filecnt" "monokai"
       rm "out.$cb_lang"
       mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
       filecnt=$(($filecnt + 1))
     fi
   done
 }
+
+if [ "$(head -1 "$1")" == "---" ]; then
+  sed -si "1,7 d" "$1"
+fi
 
 codeblock "$1"
 
