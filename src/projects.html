@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Rawr</title>
+    <link href="output.css" rel="stylesheet" />
+    <script src="projects.js"></script>
+  </head>
+
+  <body class="font-mono bg-neutral-950 m-0 text-stone-50">
+    <template id="project-div">
+      <style>
+        @import url("output.css");
+      </style>
+      <div
+        class="block border border-4 border-double rounded-sm border-lime-500 w-100 m-4 p-4 font-mono bg-neutral-950 m-0 text-stone-50 duration-500 hover:scale-[1.1]"
+        style="overflow-wrap: anywhere"
+      >
+        <h3 class="font-bold" id="project-heading"></h3>
+        <a
+          class="block text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950 mb-2"
+          id="project-link"
+          >test</a
+        >
+        <p class="flex flex-wrap" id="project-desc"></p>
+      </div>
+    </template>
+
+    <div class="flex flex-wrap m-4">
+      <project-div
+        heading="VIMP"
+        href="https://codeberg.org/mageOfStructs/vimp"
+        desc="Online SVG creator that only works over vim-like keyboard shortcuts"
+      ></project-div>
+      <project-div
+        heading="ArduinoNetworking"
+        href="https://github.com/mageOfStructs/arduinoNetworking"
+        desc="Simple TCP/IP stack implementation for Arduinos for sending text msgs."
+      ></project-div>
+      <project-div
+        heading="cargo-uwu"
+        href="https://crates.io/crates/cargo-uwu"
+        desc="Honorary mention. Uwuifies your cargo output. One of my first Rust projects"
+      ></project-div>
+      <project-div
+        heading="VBE"
+        href="https://github.com/mageOfStructs/VBE"
+        desc="young me tried simulating a linux system as much as he could here"
+      ></project-div>
+    </div>
+    <pre id="tty">
+      
+    [anon@dwagon ~]$ <a href="home" class="text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950">clear</a>█
+    </pre>
+  </body>
+</html>
