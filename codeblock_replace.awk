@@ -3,7 +3,7 @@ BEGIN {
   is_end_of_cb = 0;
 }
 
-/^```/ {
+/^[[:space:]]*```/ {
   if (is_end_of_cb % 2 == 0) {
     printf "%s", "<thought-cb>"
     filename = "./thoughts_gen/codeblocks/" heading "/out" cidx ".html";
