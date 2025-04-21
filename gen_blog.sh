@@ -34,15 +34,21 @@ for thought in $MD_SRC/*.md; do
   ./to_html.sh "$thought"
 done
 
+getlinenr() {
+  echo "$(grep -m1 -nF "$1" $2 | cut -d: -f1)"
+}
+
 multi_page_gen() {
   log "selected multi_page_gen"
   mkdir -p dist/thoughts
   cp dist/docs.html dist/docs_gen.html
+  docentry_insertpoint="$(getlinenr '<!-- doc entries here -->' dist/docs.html)"
   for thought in ./thoughts_gen/*.html; do
     thought_heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
     echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h1 class=\"font-bold text-3xl text-sky-600\" id=\"$thought_heading\">$thought_heading</h1><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
-    sed "58,67 d" dist/thoughts.html | awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' > "./dist/thoughts/$thought_heading.html"
-    sed -si "22 a <li class=\"text-lime-500 hover:bg-lime-500 hover:text-neutral-950\" onclick=\"document.getElementById('content').src = 'thoughts/$thought_heading.html'\">$thought_heading</li>" dist/docs_gen.html
+    sed "58,70 d" dist/thoughts.html | awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' > "./dist/thoughts/$thought_heading.html"
+    sed -si "$docentry_insertpoint a <li class=\"text-lime-500 hover:bg-lime-500 hover:text-neutral-950\" onclick=\"document.getElementById('content').src = 'thoughts/$thought_heading.html'\">$thought_heading</li>" dist/docs_gen.html
+    docentry_insertpoint=$(($docentry_insertpoint + 1))
     rm tmp
   done
 }
