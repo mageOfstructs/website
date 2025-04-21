@@ -10,34 +10,26 @@
         content: " ";
         padding-left: 2vw;
         padding-bottom: 4px;
+        padding-top: 11px;
+      }
+
+      .navbar li {
+        margin-top: 7px;
       }
     </style>
   </head>
 
-  <body class="bg-neutral-950 m-0 text-stone-50">
-    <div class="flex h-100">
+  <body class="bg-neutral-950 m-0 text-stone-50 h-screen">
+    <div class="flex h-full">
       <div class="flex-1">
         <p class="mt-2 ml-2 mb-0">Root</p>
         <ul role="list" class="pl-5 navbar m-0">
           <!-- doc entries here -->
-          <li>
-            <a class="text-lime-500 hover:bg-lime-500 hover:text-neutral-950"
-              >sub-el1</a
-            >
-          </li>
-          <li>
-            <a class="text-lime-500 hover:bg-lime-500 hover:text-neutral-950"
-              >sub-el2</a
-            >
-          </li>
-          <li>
-            <a class="text-lime-500 hover:bg-lime-500 hover:text-neutral-950"
-              >sub-el3</a
-            >
-          </li>
         </ul>
       </div>
-      <div class="flex-3">content here</div>
+      <div class="flex-3">
+        <iframe id="content" width="100%" height="100%" />
+      </div>
     </div>
     <pre>
     [anon@dwagon ~]$ █
