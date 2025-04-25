@@ -2,7 +2,8 @@
 
 readonly SCRIPTNAME="$0"
 readonly HEADING=$(/bin/grep "$1" -m1 -oPe "[^# ].*")
-readonly OUTFILE="./thoughts_gen/$HEADING.html"
+readonly OUTDIR=${2:-"./thoughts_gen"}
+readonly OUTFILE="$OUTDIR/$HEADING.html"
 
 log() {
   echo "$SCRIPTNAME: " $1
@@ -16,11 +17,11 @@ codeblock() {
   rm -rf "./thoughts_gen/codeblocks/$HEADING/*" || true
   for i in $CODEBLOCKS; do 
     if [ -n "$(echo $i | tr -d ' \n')" ]; then 
-      arr_ready_str="$(awk "//; /^[[:space:]]*\$/{print \" \";}" <<< "$i")"
+      arr_ready_str="$(awk "//; /^[[:space:]]*\$/{print \" \";}" <<< "$i")" # preserve empty lines by printing a space
       IFS=$'\n'
       cb_lang=($arr_ready_str)
       IFS=$'`'
-      printf "%s\n" "${cb_lang[@]:1:$((${#cb_lang[@]}-2))}" > "out.$cb_lang"
+      printf "%s\n" "${cb_lang[@]:1:$((${#cb_lang[@]}-2))}" > "out.$cb_lang" # whatever this does
       python highlight.py "out.$cb_lang" "$filecnt" "monokai"
       rm "out.$cb_lang"
       mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
@@ -29,6 +30,7 @@ codeblock() {
   done
 }
 
+# ig it's bad practice if the html generator changes the source files, but whatever
 if [ "$(head -1 "$1")" == "---" ]; then
   sed -si "1,7 d" "$1"
 fi
