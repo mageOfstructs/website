@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+shopt -s extglob
 
 readonly SCRIPTNAME="$0"
 readonly MD_SRC="${1:-./thoughts}"
@@ -31,9 +32,20 @@ if [[ -n "$ASSET_DIR" && -d "$ASSET_DIR" ]]; then
   cp -r "$ASSET_DIR" "./dist/" # TODO: change later
 fi
 
-for thought in $MD_SRC/*.md; do
-  ./to_html.sh "$thought"
-done
+genhtml() {
+  mkdir -p "$2"
+  for thought in $1/!(*.png); do
+    basename="${thought##*/}"
+    if [[ "$basename" == "assets" ]]; then
+      continue
+    elif [[ -d "$thought" ]]; then 
+      genhtml "$thought" "$2/$basename"
+    else
+      ./to_html.sh "$thought" "$2"
+    fi
+  done
+}
+genhtml "$MD_SRC" "$HTML_DST"
 
 getlinenr() {
   echo "$(grep -m1 -nF "$1" $2 | cut -d: -f1)"
