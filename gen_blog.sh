@@ -59,15 +59,26 @@ append_to_doc() {
 
 multi_page_gen() {
   log "selected multi_page_gen"
-  mkdir -p dist/thoughts
-  docentry_insertpoint="$(getlinenr '<!-- doc entries here -->' dist/docs.html)"
-  for thought in ./thoughts_gen/*.html; do
-    thought_heading="$(echo "$thought" | cut -c 16- | cut -d. -f1)"
-    echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h1 class=\"font-bold text-3xl text-sky-600\" id=\"$thought_heading\">$thought_heading</h1><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
-    sed "58,70 d" dist/thoughts.html | awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' > "./dist/thoughts/$thought_heading.html"
-    sed -si "$docentry_insertpoint a <li class=\"text-lime-500 hover:bg-lime-500 hover:text-neutral-950\" onclick=\"document.getElementById('content').src = 'thoughts/$thought_heading.html'\">$thought_heading</li>" dist/docs.html
-    docentry_insertpoint=$(($docentry_insertpoint + 1))
-    rm tmp
+  mkdir -p "dist/thoughts/$1"
+  for thought in ./thoughts_gen/$1/*; do
+    basename="${thought##*/}"
+    log "$thought"
+    if [[ "$basename" == "codeblocks" ]]; then
+      continue
+    elif [[ -d "$thought" ]]; then
+      append_to_doc "<li>$basename</li>"
+      append_to_doc "<ul class=\"pl-5\">"
+      multi_page_gen "$1/$basename"
+      append_to_doc "</ul>"
+    else
+      thought_heading="$(echo "$basename" | cut -d. -f1)"
+      # wrap rendered content in a nice border
+      echo "<div class=\"thought block border border-4 border-double rounded-sm border-lime-500 p-4 font-mono bg-neutral-950 m-0 text-stone-50 w-full mb-4\"><h1 class=\"font-bold text-3xl text-sky-600\" id=\"$thought_heading\">$thought_heading</h1><div class=\"whitespace-pre-line\">$(cat "$thought")</div></div>" >> tmp
+      # grab our template, remove unneeded boilerplate (this could be done better)
+      sed "58,70 d" dist/thoughts.html | awk '//; /<!-- dynamic stuff here -->/{while(getline line<"tmp"){print line}}' > "./dist/thoughts/$1/$thought_heading.html"
+      append_to_doc "<li class=\"text-lime-500 hover:bg-lime-500 hover:text-neutral-950\" onclick=\"document.getElementById('content').src = 'thoughts/$1/$thought_heading.html'\">$thought_heading</li>"
+      rm tmp
+    fi
   done
 }
 
