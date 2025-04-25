@@ -6,7 +6,7 @@ readonly MD_SRC="${1:-./thoughts}"
 readonly HTML_DST="${2:-./thoughts_gen}"
 readonly ASSET_DIR="${ASSET_DIR:-"$MD_SRC/assets"}"
 log() {
-  echo "$SCRIPTNAME: " $1
+  echo "$SCRIPTNAME: $1"
 }
 
 init() {
