@@ -47,8 +47,14 @@ genhtml() {
 }
 genhtml "$MD_SRC" "$HTML_DST"
 
-getlinenr() {
+getlinenr() { # getlinenr <pattern> <file>
   echo "$(grep -m1 -nF "$1" $2 | cut -d: -f1)"
+}
+
+docentry_insertpoint="$(getlinenr '<!-- doc entries here -->' dist/docs.html)"
+append_to_doc() {
+  sed -si "$docentry_insertpoint a $1" dist/docs.html
+  docentry_insertpoint=$(($docentry_insertpoint + 1))
 }
 
 multi_page_gen() {
