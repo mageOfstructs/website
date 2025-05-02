@@ -22,7 +22,11 @@ codeblock() {
       cb_lang=($arr_ready_str)
       IFS=$'`'
       printf "%s\n" "${cb_lang[@]:1:$((${#cb_lang[@]}-2))}" > "out.$cb_lang" # whatever this does
-      python highlight.py "out.$cb_lang" "$filecnt" "monokai"
+      if [[ "$cb_lang" != "text" ]]; then
+        python highlight.py "out.$cb_lang" "$filecnt" "monokai"
+      else
+        sed -e "1 i <pre>" -e "\$ a </pre>" "out.$cb_lang" > "out$filecnt.html"
+      fi
       rm "out.$cb_lang"
       mv "out$filecnt.html" "./thoughts_gen/codeblocks/$HEADING/"
       filecnt=$(($filecnt + 1))
