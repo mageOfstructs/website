@@ -5,14 +5,14 @@ BEGIN {
 
 /^[[:space:]]*```/ {
   if (is_end_of_cb % 2 == 0) {
-    printf "%s", "<thought-cb>"
+    # printf "%s", "<thought-cb>"
     filename = "./thoughts_gen/codeblocks/" heading "/out" cidx ".html";
     while (getline line<filename) {
       if (!(line ~ "^(<!)?-->?") && !(line ~ "^</?(meta|html|head|body|!DOCTYPE html|title).*")) {
         print line;
       }
     }
-    printf "%s", "</thought-cb>"
+    # printf "%s", "</thought-cb>"
     cidx++;
   } 
   is_end_of_cb++;
