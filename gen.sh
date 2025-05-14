@@ -11,4 +11,4 @@ if [[ "$DOCS_PATH" == http* ]]; then
 fi
 
 ./gen_blog.sh
-./gen_blog.sh "$1" ./thoughts_gen/ -m
+./gen_blog.sh "$DOCS_PATH" ./thoughts_gen/ -m
