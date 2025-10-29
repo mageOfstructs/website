@@ -1,13 +1,24 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Rawr</title>
-    <link href="output.css" rel="stylesheet" />
-    <script src="home.js"></script>
-  </head>
 
-  <body onload="init()" class="bg-neutral-950 m-0 text-stone-50">
-    <pre id="tty">
+<head>
+  <title>Rawr</title>
+  <link href="output.css" rel="stylesheet" />
+  <script src="home.js"></script>
+  <style>
+    /* terrible I know */
+    blockquote {
+      border-left: solid grey 3px !important;
+      padding-left: 2em !important;
+      font-style: italic !important;
+      background-color: #111;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body onload="init()" class="bg-neutral-950 m-0 text-stone-50">
+  <pre id="tty">
     Linuwux 6.2.1-drgn (tty1)
 
     dwagon login: anon
@@ -21,6 +32,8 @@
     anything web-related.
 
     Broadcast message from mageOfStructs@dwagon (pts/3) (<span id="dateC"></span>):
+
+    <blockquote id="quoteC"></blockquote>
 
     Due to a case of extreme lazyness, this website is powered by inferior (JavaScript) technology. I understand this
     isn't an optimal solution, however to fulfill the "Rewrite it in Rust" ritual, a project must first be written in a
@@ -37,9 +50,11 @@
     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓█████████████▓▒░░▒▓█▓▒░░▒▓█▓▒░
 
     [anon@dwagon ~]$ █
-    <a href="about" class="text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950">pinky -l mageOfStructs (about)</a>
+    <a href="about" class="text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950">pinky -l mageOfStructs
+      (about)</a>
     <a href="projects" class="text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950">Projects</a>
     <a href="thoughts" class="text-lime-500 underline hover:bg-lime-500 hover:text-neutral-950"><s>Thoughts</s> Blog</a>
   </pre>
-  </body>
+</body>
+
 </html>
