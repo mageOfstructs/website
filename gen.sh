@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
-IFS="\t\n"
+IFS=$'\t\n'
 
-DOCS_PATH="$1:?need docs path"
+DOCS_PATH="${1:?need docs path}"
 
 if [[ "$DOCS_PATH" == http* ]]; then
   rm -rf tmp || true
