@@ -26,13 +26,15 @@ function getQuote() {
     .then((body) => body.json())
     .then((data) => {
       const acc_id = data.id;
-      return fetch(`${API_URL}/accounts/${acc_id}/statuses`)
+      return fetch(
+        `${API_URL}/accounts/${acc_id}/statuses?exclude_replies=true&exclude_reblogs=true`,
+      )
         .then((resp) => {
           if (!resp.ok) throw new Error("Failed request: " + resp.status);
           return resp;
         })
         .then((body) => body.json())
-        .then((data) => data.filter((status) => !status.in_reply_to_id))
+        .then((data) => data.filter((status) => !status.poll))
         .then((data) => {
           const randomIdx = Math.floor(Math.random() * data.length);
           console.log(data.length);
