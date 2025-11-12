@@ -34,7 +34,9 @@ function getQuote() {
           return resp;
         })
         .then((body) => body.json())
-        .then((data) => data.filter((status) => !status.poll))
+        .then((data) =>
+          data.filter((status) => !status.poll && !status.in_reply_to_id),
+        )
         .then((data) => {
           const randomIdx = Math.floor(Math.random() * data.length);
           console.log(data.length);
