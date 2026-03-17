@@ -5,11 +5,46 @@
   <title>Rawr</title>
   <link href="output.css" rel="stylesheet" />
   <script src="index.js"></script>
+  <meta http-equiv="Refresh" content="2.5;/home" />
+
+  <style>
+    .text_anim {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        animation: 1.7s 1 normal text_scroll;
+        animation-timing-function: steps(31, end);
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes text_scroll {
+        from {
+            top: 0;
+        }
+
+        to {
+            top: 100%;
+        }
+    }
+
+    .text_anim:hover {
+        top: 100%;
+    }
+  </style>
 </head>
 
 <body onload="init()" class="bg-neutral-950 m-0 flex flex-col h-100">
   <a style="display: none;" rel="me" href="https://mastodon.social/@mage_of_dragons"></a>
   <div id="logContainer" class="h-100 flex flex-col flex-auto">
   </div>
+  <noscript>
+      <div class="text_anim bg-neutral-950">
+      </div>
+      <div id="logContainerNoJS" class="h-100 flex flex-col flex-auto font-mono text-stone-50">
+          {LOG_CONTENT}
+      </div>
+  </noscript>
 </body>
 <html>
