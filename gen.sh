@@ -17,3 +17,4 @@ if [ $# -ge 1 ]; then
 fi
 
 ./nojs.sh
+./license.sh
