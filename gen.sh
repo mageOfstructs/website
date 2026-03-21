@@ -8,7 +8,7 @@ if [ $# -ge 1 ]; then
     DOCS_PATH="${1:?need docs path}"
 
     if [[ "$DOCS_PATH" == http* ]]; then
-      rm -rf tmp || true
+      rm -rf tmp &>/dev/null || true
       git clone "$DOCS_PATH" tmp
       DOCS_PATH="./tmp"
     fi

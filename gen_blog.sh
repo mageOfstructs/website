@@ -21,9 +21,9 @@ init() {
   
   # clean generated file dir
   # TODO: parameterize (scary)
-  rm ./thoughts_gen/*.html || true
-  rm tmp || true
   cp ./src/* dist/
+  rm ./thoughts_gen/*.html &>/dev/null || true
+  rm tmp &>/dev/null || true
 }
 
 init
